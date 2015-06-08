@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">ChessCalendar</string>
+
+    <string name="changeSettings">Change Settings</string>
+    <string name="exit">Exit</string>
+    <string name="changeFontSize">Change font size:</string>
+    <string name="searching">Searching. Please wait for results</string>
+    <string name="enterKeyword">keyword</string>
+    <string name="help_text"> </string>
+    <string name="fontResetDone">Font size restored - press save settings to apply.</string>
+    <string name="fontSizeReset">Reset font size to default</string>
+    <string name="searchButtonLabel">Search</string>
+    <string name="whiteOnDark">White text on dark background</string>
+    <string name="darkOnWhite">Dark text on white background</string>
+    <string name="settingsSaved">Settings saved</string>
+    <string name="applySettings">Save Settings and configure widget </string>
+    <string name="app_name">Today in Chess History</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+   
+   
 </resources>
