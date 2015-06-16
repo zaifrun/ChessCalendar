@@ -11,6 +11,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
@@ -18,6 +19,10 @@ import android.text.SpannableStringBuilder;
 import android.text.style.TextAppearanceSpan;
 import android.util.DisplayMetrics;
 import android.widget.RemoteViews;
+
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.NotificationCompat.WearableExtender;
 
 public class CalendarWidget extends AppWidgetProvider {
 	
@@ -181,7 +186,46 @@ public class CalendarWidget extends AppWidgetProvider {
 		String eventText = event.getYear()+": "+event.getEvent();
 		
 		int start = spanString.length();
-		spanString.append("\n"+eventText.toString());
+		spanString.append("\n" + eventText.toString());
+		int lastMonthNotification =  prefs.getInt("Month",0);
+		int lastDayNotification = prefs.getInt("Day",0);
+		if (lastDayNotification!=day && lastMonthNotification!=month)
+		{
+			//TODO a new day - show the notification.
+
+			// Specify the 'big view' content to display the long
+// event description that may not fit the normal content text.
+			NotificationCompat.BigTextStyle bigStyle = new NotificationCompat.BigTextStyle();
+			bigStyle.bigText(event.getEvent().toString());
+
+			NotificationCompat.Builder notificationBuilder =
+					new NotificationCompat.Builder(context)
+							.setSmallIcon(R.drawable.icon)
+							.setContentTitle(event.getYear()+"")
+							.setContentText(event.getEvent().toString())
+							.setStyle(bigStyle);
+
+			// Get an instance of the NotificationManager service
+			NotificationManagerCompat notificationManager =
+					NotificationManagerCompat.from(context);
+
+			// Issue the notification with notification manager.
+			notificationManager.notify(1, notificationBuilder.build());
+
+			SharedPreferences.Editor ed = prefs.edit();
+			if (ed!=null)
+			{
+				//put new values - now we have showed the notification
+				ed.putInt("Month", month);
+				ed.putInt("Day",day);
+				ed.commit();
+			}
+
+		}
+
+		//check if the current day is different from the last time
+		//we showed a notification (only show once a day).
+		//if yes, then show the notification.
 		
 		float headerSize = fontSize;
 		float textSize = fontSize-4;
