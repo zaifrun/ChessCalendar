@@ -196,14 +196,14 @@ public class CalendarWidget extends AppWidgetProvider {
 			// Specify the 'big view' content to display the long
 // event description that may not fit the normal content text.
 			NotificationCompat.BigTextStyle bigStyle = new NotificationCompat.BigTextStyle();
-			bigStyle.bigText(event.getEvent().toString());
+			bigStyle.bigText(event.getYear() + ": " + event.getEvent().toString());
 
 			NotificationCompat.Builder notificationBuilder =
 					new NotificationCompat.Builder(context)
 							.setSmallIcon(R.drawable.icon)
-							.setContentTitle(event.getYear()+"")
-							.setContentText(event.getEvent().toString())
-							.setStyle(bigStyle);
+							.setContentTitle("Today in Chess History")
+							.setContentText("event.getYear(): "+event.getEvent().toString())
+				.setStyle(bigStyle);
 
 			// Get an instance of the NotificationManager service
 			NotificationManagerCompat notificationManager =
