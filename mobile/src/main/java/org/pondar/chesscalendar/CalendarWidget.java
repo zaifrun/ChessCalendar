@@ -192,7 +192,10 @@ public class CalendarWidget extends AppWidgetProvider {
 		if (lastDayNotification!=day && lastMonthNotification!=month)
 		{
 			//TODO a new day - show the notification.
-
+			Intent viewIntent = new Intent(context, ChessCalendarMain.class);
+			//viewIntent.putExtra(EXTRA_EVENT_ID, 1);
+			PendingIntent viewPendingIntent =
+					PendingIntent.getActivity(context, 0, viewIntent, 0);
 			// Specify the 'big view' content to display the long
 // event description that may not fit the normal content text.
 			NotificationCompat.BigTextStyle bigStyle = new NotificationCompat.BigTextStyle();
@@ -202,8 +205,9 @@ public class CalendarWidget extends AppWidgetProvider {
 					new NotificationCompat.Builder(context)
 							.setSmallIcon(R.drawable.icon)
 							.setContentTitle("Today in Chess History")
-							.setContentText(event.getYear()+": " +event.getEvent().toString())
-				.setStyle(bigStyle);
+							.setContentText(event.getYear() + ": " + event.getEvent().toString())
+							.setStyle(bigStyle)
+							.setContentIntent(viewPendingIntent);;
 
 			// Get an instance of the NotificationManager service
 			NotificationManagerCompat notificationManager =
