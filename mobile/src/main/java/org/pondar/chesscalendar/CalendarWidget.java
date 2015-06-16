@@ -202,7 +202,7 @@ public class CalendarWidget extends AppWidgetProvider {
 					new NotificationCompat.Builder(context)
 							.setSmallIcon(R.drawable.icon)
 							.setContentTitle("Today in Chess History")
-							.setContentText("event.getYear(): "+event.getEvent().toString())
+							.setContentText(event.getYear()+": " +event.getEvent().toString())
 				.setStyle(bigStyle);
 
 			// Get an instance of the NotificationManager service
