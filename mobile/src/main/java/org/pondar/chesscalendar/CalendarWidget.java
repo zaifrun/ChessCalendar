@@ -189,7 +189,7 @@ public class CalendarWidget extends AppWidgetProvider {
 		spanString.append("\n" + eventText.toString());
 		int lastMonthNotification =  prefs.getInt("Month",0);
 		int lastDayNotification = prefs.getInt("Day",0);
-		if (lastDayNotification!=day && lastMonthNotification!=month)
+		if (lastDayNotification!=day || lastMonthNotification!=month)
 		{
 			//TODO a new day - show the notification.
 			Intent viewIntent = new Intent(context, ChessCalendarMain.class);
