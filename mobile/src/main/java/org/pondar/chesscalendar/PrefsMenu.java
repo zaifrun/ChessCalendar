@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 
 public class PrefsMenu extends Activity implements OnClickListener{
@@ -129,17 +130,23 @@ public class PrefsMenu extends Activity implements OnClickListener{
 	      //    boolean notification = false;
 	      
 	          RadioGroup radio = (RadioGroup) findViewById(R.id.radioGroup);
-	          boolean showDark = (radio.getCheckedRadioButtonId()==R.id.radioDark);
+			  CheckBox box = (CheckBox) findViewById(R.id.notificationBox);
+
+			  boolean showDark = (radio.getCheckedRadioButtonId()==R.id.radioDark);
 	          System.out.println("starting to update settings");
 	          SeekBar bar = (SeekBar) findViewById(R.id.fontSizeBar);
 	          
 	          CalendarWidget.updateSettings(bar.getProgress(), showDark, context, appWidgetManager, mAppWidgetId);
-			  CheckBox box = (CheckBox) findViewById(R.id.notificationBox);
 	          System.out.println("settings updated");
 	          SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 	          SharedPreferences.Editor ed = prefs.edit();	
 	          ed.putBoolean(SETTINGS_showDark, showDark);
 	          ed.putInt(SETTINGS_FONTSIZE, bar.getProgress());
+			  if (box==null)
+			  {
+				  Toast.makeText(this,"box is null",Toast.LENGTH_LONG).show();
+
+			  } else
 			  ed.putBoolean(SETTINGS_showNotification,box.isChecked());
 	          
 	          ed.commit();
@@ -150,7 +157,7 @@ public class PrefsMenu extends Activity implements OnClickListener{
 	          resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
 	          setResult(RESULT_OK, resultValue);
 	          System.out.println("created result intent value");
-	          Utils.showToastShort(context,context.getResources().getString(R.string.settingsSaved));
+	          Utils.showToastShort(context, context.getResources().getString(R.string.settingsSaved));
 	          finish();
 		  }
           
