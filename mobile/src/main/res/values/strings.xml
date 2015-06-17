@@ -12,6 +12,7 @@
     <string name="whiteOnDark">White text on dark background</string>
     <string name="darkOnWhite">Dark text on white background</string>
     <string name="settingsSaved">Settings saved</string>
+    <string name="showNotification">Show notification once per day</string>
     <string name="applySettings">Save Settings and configure widget </string>
     <string name="app_name">Today in Chess History</string>
     <string name="hello_world">Hello world!</string>

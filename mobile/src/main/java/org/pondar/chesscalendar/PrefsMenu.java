@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 
@@ -61,15 +62,16 @@ public class PrefsMenu extends Activity implements OnClickListener{
 	    
 	    //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);	  					
 	    int fontSize = prefs.getInt(SETTINGS_FONTSIZE, SETTINGS_DEFAULTFONTSIZE);
-	    
 	    RadioGroup radio = (RadioGroup) findViewById(R.id.radioGroup);
 	    if (showDark)
 	    	radio.check(R.id.radioDark);
 	    else
 	    	radio.check(R.id.radioLight);
 
-		
-		
+		CheckBox box = (CheckBox) findViewById(R.id.notificationBox);
+		boolean notify = prefs.getBoolean(SETTINGS_showNotification,true);
+		box.setChecked(notify);
+
         setResult(RESULT_CANCELED);
         findViewById(R.id.applybutton).setOnClickListener(this);
         findViewById(R.id.resetfontbutton).setOnClickListener(this);
@@ -131,13 +133,14 @@ public class PrefsMenu extends Activity implements OnClickListener{
 	          System.out.println("starting to update settings");
 	          SeekBar bar = (SeekBar) findViewById(R.id.fontSizeBar);
 	          
-	          CalendarWidget.updateSettings(bar.getProgress(),showDark,context,appWidgetManager,mAppWidgetId);
-	    
+	          CalendarWidget.updateSettings(bar.getProgress(), showDark, context, appWidgetManager, mAppWidgetId);
+			  CheckBox box = (CheckBox) findViewById(R.id.notificationBox);
 	          System.out.println("settings updated");
 	          SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 	          SharedPreferences.Editor ed = prefs.edit();	
 	          ed.putBoolean(SETTINGS_showDark, showDark);
 	          ed.putInt(SETTINGS_FONTSIZE, bar.getProgress());
+			  ed.putBoolean(SETTINGS_showNotification,box.isChecked());
 	          
 	          ed.commit();
 	          

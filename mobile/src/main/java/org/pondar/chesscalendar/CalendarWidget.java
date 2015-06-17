@@ -30,6 +30,7 @@ public class CalendarWidget extends AppWidgetProvider {
 	private static boolean onEnabledCalled = false;
 	static boolean showDark = true;
 	static Context widgetContext = null;
+
 	
 	public static void updateSettings(int fontSize,boolean dark,
 			Context context, AppWidgetManager appWidgetManager,
@@ -130,6 +131,7 @@ public class CalendarWidget extends AppWidgetProvider {
 		System.out.println("Got Chess Events from data file");
 		SharedPreferences prefs = null;
 		int fontSize = PrefsMenu.SETTINGS_DEFAULTFONTSIZE;
+		boolean notify = true;
 		if (widgetContext==null)
 		{
 			System.out.println("widgetContext = null FATAL!!!!!!");
@@ -138,6 +140,7 @@ public class CalendarWidget extends AppWidgetProvider {
 		{
 			prefs = PreferenceManager.getDefaultSharedPreferences(widgetContext);
 			showDark = prefs.getBoolean(PrefsMenu.SETTINGS_showDark, true);
+			notify = prefs.getBoolean(PrefsMenu.SETTINGS_showNotification,true);
 			fontSize = prefs.getInt(PrefsMenu.SETTINGS_FONTSIZE, PrefsMenu.SETTINGS_DEFAULTFONTSIZE);
 		}
 		System.out.println("IN WIDGET: SHOW DARK = "+showDark);
@@ -189,7 +192,7 @@ public class CalendarWidget extends AppWidgetProvider {
 		spanString.append("\n" + eventText.toString());
 		int lastMonthNotification =  prefs.getInt("Month",0);
 		int lastDayNotification = prefs.getInt("Day",0);
-		if (lastDayNotification!=day || lastMonthNotification!=month)
+		if (notify && (lastDayNotification!=day || lastMonthNotification!=month))
 		{
 			//TODO a new day - show the notification.
 			Intent viewIntent = new Intent(context, ChessCalendarMain.class);
